@@ -1,0 +1,118 @@
+@startuml ClassDiagram
+
+
+class Date {
+  int year
+  int month
+  int day
+  int hour
+  int minute
+}
+
+
+class Spektakl {
+  string tytul
+  Date data
+  int nr_sali
+  int ilosc_miejsc
+  string[] aktorzy
+  bool wyprzedany
+}
+
+class Czlowiek {
+  string nazwisko
+  string imie
+}
+class Klient {
+  int id 
+  string email
+  string nr_telefonu
+  string adres
+  
+  void kupBilet(sposob:string)
+  void uzupelnijDane(adres:string, email:string, imie:strin, nazwisko:string)
+  wybierzSpektakl(id_spektaklu:int):Spektakl,dates[]
+  wybierzSpektakl(id_aktora:int):Spektakle[]
+  wybierzSpektakl(data_spektaklu:date):date,Spektakle[]
+  pokazKoszyk():Koszyk
+  void otworzStroneGlowna()
+  zwrocBilet(bilet:Bilet, dane_zwrotu:json):bool
+}
+
+
+class Bank {
+  int id 
+  string nazwa
+}
+
+class Platnosc {
+  int id 
+  float kwota
+  int ttl
+
+  platnoscKarta(kwota:float, nr_karty:int, cvv:int, data_waznosci:date):bool
+  platnoscPrzelewem(kwota:float):bool
+  platnoscBlik(kwota:float, kod:int):bool
+}
+
+class Bilet{
+  int id 
+  int id_spektaklu
+  float cena
+  string[] miejsca
+
+}
+
+
+class Koszyk {
+  int id
+  float wartosc
+  Bilet[] bilety
+
+  void rozpocznijPlatnosc(id_banku:int, bilety:Bilet[])
+  usunBilet(bilet:Bilet):bool
+  void dodajWiecejBiletow()
+}
+
+
+class PracownikTeatru {
+  int id
+  string pozycja
+
+  wyslijBiletPoczta(bilet:Bilet, adres:string, adresat:string):bool
+  void dodajSpektakl(Spektakl)
+  void usunSpektakl(Spektakl)
+}
+
+
+class StronaInternetowa {
+  string adres
+
+  void wyswietlSpektakle(id_teatru:int)
+  void wyswietlAktorow(id_teatru:int)
+  void wyswietlKalendarz(id_teatru:int)
+
+  stworzBilet(id_biletu:int, id_spektakl:int, cena:float, miejsca:string[]):Bilet
+  wyslijBiletMailem(bilet:Bilet, email:string)
+}
+
+Klient -- StronaInternetowa
+Klient -- Koszyk
+Klient -- Platnosc
+Klient -- Bilet
+Koszyk o-- Bilet
+Koszyk -- Platnosc
+
+PracownikTeatru -- StronaInternetowa
+
+Bank -- Platnosc
+Bilet o-- Spektakl
+
+Date -- Spektakl
+Spektakl -- StronaInternetowa
+StronaInternetowa -- Bilet
+PracownikTeatru -- Spektakl
+
+Czlowiek --|> Klient 
+Czlowiek --|> PracownikTeatru
+@enduml

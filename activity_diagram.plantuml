@@ -1,0 +1,78 @@
+@startuml ActivityDiagram
+
+(*) --> "Wejście klienta na stronę internetową z biletami"
+if "Przejdź do koszyka" as if1 then 
+  --> [TAK] "Wyświetlenie wybranych biletów"
+  --> if "Zatwierdzenie koszyka" as if2 then
+    --> [TAK] if "Wybierz metodę otrzymania biletów" as if5 then
+      --> [e-mail] "Podaj adres e-mail"
+      --> "Zacznij płatność"
+    else
+      --> [list polecony] "Podaj adres zamieszkania"
+      --> "Zacznij płatność"
+    endif
+    --> if "Wybierz tryb płatności" as if3 then
+      --> [Karta] "Płatność kartą"
+      --> "Wprowadź dane z karty"
+      --> if "Potwierdzenie otrzymane" as if8 then
+        --> [TAK] "Wyslij bilety"
+        else
+        --> [NIE] "Wprowadź dane z karty"
+      endif
+      else 
+      --> [Przelew] "Płatność przelewem"
+      --> "Generuj dane do przelewu"
+      --> if "Oczekiwanie na zaksiegowanie" as if7 then
+        --> [Przelew dotarł] "Wyslij bilety"
+      else
+        --> [Przelew nie dotarł] (*)
+      endif
+      else
+      --> [BLIK] "Płatność BLIK"
+      --> "Wprowadź numer BLIK"
+      
+      --> if "Potwierdzenie otrzymane" as if4 then
+        --> [TAK] "Wyslij bilety"
+        --> (*)
+        else
+        --> [NIE] "Wprowadź numer BLIK"
+      endif
+    endif
+  
+  else 
+    --> [NIE] "Edytuj koszyk"
+    --> if1
+  endif
+  
+
+
+else 
+  --> [NIE] "Przejdź do strony głównej"
+  --> === B1 ===
+  === B1 === --> "Kup bilet"
+  --> if "Sposób wyszukiwania" as if6 then 
+    --> [Po dacie] "Wyświetlenie kalendarza ze spektaklami"
+    --> [Wybór dnia] "Wyświetlenie konkretnego dnia z godzinami spektali"
+    --> "Wybierz spektakl, datę, godzinę"
+  else
+    --> [Po tytule] "Wyświetlenie listy granych spektakli"
+    --> [Wybór spektaklu] "Wyświetlenie spektaklu z konkretnymi datami i godzinami"
+    --> "Wybierz spektakl, datę, godzinę"
+  else
+    --> [Po obsadzie] "Wyświetlenie aktorów"
+    --> [Wybór aktora] "Wyświetlenie spektakli z danymi aktorami"
+    --> "Wybierz spektakl, datę, godzinę"
+  endif
+
+
+  --> "Wybór miejsc"
+  --> "Potwierdzenie wyboru"
+  --> if1
+
+  === B1 === --> "Zwróć bilet"
+  --> "Wybierz bilet do zwrotu"
+  --> "Wypełnij formularz zwrotu"
+  --> (*)
+endif
+
+@enduml

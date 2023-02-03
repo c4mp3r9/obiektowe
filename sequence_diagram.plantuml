@@ -1,0 +1,39 @@
+@startuml SequenceDiagram
+
+actor Użytkownik
+
+Użytkownik -> Klient: otworzStroneGlowna()
+activate Klient
+'wyswietlSpektakle -> Kup bilet
+
+Klient -> StronaInternetowa: kupBilet(po_tytule)
+activate StronaInternetowa
+return wyswietlSpektakle()
+
+Klient -> StronaInternetowa: wybierzSpektakl(Spektakl)
+activate StronaInternetowa
+Klient -> StronaInternetowa: wybierzMiejsca(miejsca[ ])
+Klient -> StronaInternetowa: wybierzDate(Date)
+return stwórzBilet(...)
+
+Klient -> Koszyk: pokazKoszyk()
+activate Koszyk
+return Koszyk
+
+Klient -> Koszyk: uzupelnijDane(adres, email, imie, nazwisko)
+activate Koszyk
+Koszyk -> Platnosc: rozpocznijPlatnosc(id_banku, bilety)
+activate Platnosc
+return (metody_platnosci[ ])
+Koszyk -> Platnosc: platnoscKarta(kwota, nr_karty, cvv, data_waznosci)
+activate Platnosc
+return (potwierdzenie)
+
+Koszyk -> StronaInternetowa: (Bilet)
+activate StronaInternetowa
+StronaInternetowa -> StronaInternetowa: wyslijBiletMailem(Bilet,email)
+return
+return powrot_do_strony_glownej
+return
+
+@enduml

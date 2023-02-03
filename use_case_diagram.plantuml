@@ -1,0 +1,62 @@
+@startuml UseCaseDiagram
+
+actor "Klient"
+actor "StronaInternetowa"
+actor "Bank" 
+actor "PracownikTeatru"
+
+'Bank
+usecase (Płatność przelewem)
+usecase (Płatność BLIK)
+usecase (Płatność kartą)
+usecase (Przetworzenie płatności)
+usecase (Zwrot płatności)
+
+'Pracownik teatru
+usecase (Planowanie kalendarza spektakli)
+
+'Klient
+usecase (Zakup biletu)
+usecase (Zwrot biletu)
+usecase (Płatność)
+usecase (Wybór biletów na spektakl)
+
+'Strona internetowa
+usecase (Strona powitalna)
+usecase (Główna strona kupna)
+usecase (Główna strona zwrotu)
+usecase (Wyślij bilet)
+
+Klient -- (Wybór biletów na spektakl)
+
+Klient -- (Zakup biletu)
+(Zakup biletu) --> (Płatność przelewem)
+(Zakup biletu) --> (Płatność kartą)
+(Zakup biletu) --> (Płatność BLIK)
+(Płatność przelewem) --|> (Płatność)
+(Płatność kartą) --|> (Płatność)
+(Płatność BLIK) --|> (Płatność)
+(Płatność przelewem) --> (Przetworzenie płatności)
+(Płatność kartą) --> (Przetworzenie płatności)
+(Płatność BLIK) --> (Przetworzenie płatności)
+Klient -- (Zwrot biletu)
+(Zwrot biletu) --> (Zwrot płatności)
+
+Bank -- (Przetworzenie płatności)
+Bank -- (Zwrot płatności)
+
+StronaInternetowa --> (Strona powitalna)
+StronaInternetowa --> (Główna strona kupna)
+StronaInternetowa --> (Główna strona zwrotu)
+StronaInternetowa --> (Wyślij bilet)
+Klient -- (Strona powitalna)
+Klient -- (Główna strona kupna)
+Klient -- (Główna strona zwrotu)
+
+PracownikTeatru -- (Planowanie kalendarza spektakli)
+(Planowanie kalendarza spektakli) --> (Główna strona kupna)
+(Planowanie kalendarza spektakli) --> (Strona powitalna)
+PracownikTeatru -- (Wyślij bilet)
+
+@enduml
+
