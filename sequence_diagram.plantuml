@@ -6,7 +6,7 @@ Użytkownik -> Klient: otworzStroneGlowna()
 activate Klient
 'wyswietlSpektakle -> Kup bilet
 
-Klient -> StronaInternetowa: kupBilet(po_tytule)
+Klient -> StronaInternetowa: generujBilet(po_tytule)
 activate StronaInternetowa
 return wyswietlSpektakle()
 
@@ -14,26 +14,28 @@ Klient -> StronaInternetowa: wybierzSpektakl(Spektakl)
 activate StronaInternetowa
 Klient -> StronaInternetowa: wybierzMiejsca(miejsca[ ])
 Klient -> StronaInternetowa: wybierzDate(Date)
-return stwórzBilet(...)
+StronaInternetowa -> StronaInternetowa: stwórzBilet(...)
+return Bilet
 
-Klient -> Koszyk: pokazKoszyk()
-activate Koszyk
+Klient -> StronaInternetowa: pokazKoszyk()
+activate StronaInternetowa
 return Koszyk
 
-Klient -> Koszyk: uzupelnijDane(adres, email, imie, nazwisko)
-activate Koszyk
-Koszyk -> Platnosc: rozpocznijPlatnosc(id_banku, bilety)
+Klient -> StronaInternetowa: kupBilet(Bilet, sposob_wysylki)
+activate StronaInternetowa
+StronaInternetowa -> StronaInternetowa: uzupelnijDane(adres, email, imie, nazwisko)
+
+
+StronaInternetowa -> Platnosc: rozpocznijPlatnosc(id_banku, bilety)
 activate Platnosc
 return (metody_platnosci[ ])
-Koszyk -> Platnosc: platnoscKarta(kwota, nr_karty, cvv, data_waznosci)
+StronaInternetowa -> Platnosc: platnoscKarta(kwota, nr_karty, cvv, data_waznosci)
 activate Platnosc
 return (potwierdzenie)
 
-Koszyk -> StronaInternetowa: (Bilet)
-activate StronaInternetowa
-StronaInternetowa -> StronaInternetowa: wyslijBiletMailem(Bilet,email)
-return
-return powrot_do_strony_glownej
-return
 
+
+StronaInternetowa -> StronaInternetowa: wyslijBiletMailem(Bilet,email)
+return bilet_kupiony
+return powrot_do_strony_glownej
 @enduml

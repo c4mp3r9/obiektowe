@@ -23,8 +23,6 @@ usecase (Wybór biletów na spektakl)
 
 'Strona internetowa
 usecase (Strona powitalna)
-usecase (Główna strona kupna)
-usecase (Główna strona zwrotu)
 usecase (Wyślij bilet)
 
 Klient -- (Wybór biletów na spektakl)
@@ -45,10 +43,8 @@ Klient -- (Zwrot biletu)
 Bank -- (Przetworzenie płatności)
 Bank -- (Zwrot płatności)
 
-StronaInternetowa --> (Strona powitalna)
-StronaInternetowa --> (Główna strona kupna)
-StronaInternetowa --> (Główna strona zwrotu)
-StronaInternetowa --> (Wyślij bilet)
+StronaInternetowa -- (Strona powitalna)
+StronaInternetowa -- (Wyślij bilet)
 Klient -- (Strona powitalna)
 Klient -- (Główna strona kupna)
 Klient -- (Główna strona zwrotu)

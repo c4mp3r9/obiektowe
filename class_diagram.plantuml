@@ -29,20 +29,21 @@ class Klient {
   string nr_telefonu
   string adres
   
-  void kupBilet(sposob:string)
+  void generujBilet(sposob:string)
+  zwrocBilet(bilet:Bilet, dane_zwrotu:json):bool
   void uzupelnijDane(adres:string, email:string, imie:strin, nazwisko:string)
   wybierzSpektakl(id_spektaklu:int):Spektakl,dates[]
   wybierzSpektakl(id_aktora:int):Spektakle[]
   wybierzSpektakl(data_spektaklu:date):date,Spektakle[]
   pokazKoszyk():Koszyk
   void otworzStroneGlowna()
-  zwrocBilet(bilet:Bilet, dane_zwrotu:json):bool
 }
 
 
 class Bank {
   int id 
   string nazwa
+  string[] metody_platnosci
 }
 
 class Platnosc {
@@ -69,7 +70,6 @@ class Koszyk {
   float wartosc
   Bilet[] bilety
 
-  void rozpocznijPlatnosc(id_banku:int, bilety:Bilet[])
   usunBilet(bilet:Bilet):bool
   void dodajWiecejBiletow()
 }
@@ -91,7 +91,8 @@ class StronaInternetowa {
   void wyswietlSpektakle(id_teatru:int)
   void wyswietlAktorow(id_teatru:int)
   void wyswietlKalendarz(id_teatru:int)
-
+  kupBilet(bilet:Bilet, sposob_wysylki:string):bool
+  void rozpocznijPlatnosc(id_banku:int, bilety:Bilet[])
   stworzBilet(id_biletu:int, id_spektakl:int, cena:float, miejsca:string[]):Bilet
   wyslijBiletMailem(bilet:Bilet, email:string)
 }

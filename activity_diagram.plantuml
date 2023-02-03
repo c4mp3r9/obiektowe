@@ -2,7 +2,7 @@
 
 (*) --> "Wejście klienta na stronę internetową z biletami"
 if "Przejdź do koszyka" as if1 then 
-  --> [TAK] "Wyświetlenie wybranych biletów"
+  --> [TAK] "Wyświetlenie biletów w koszyku"
   --> if "Zatwierdzenie koszyka" as if2 then
     --> [TAK] if "Wybierz metodę otrzymania biletów" as if5 then
       --> [e-mail] "Podaj adres e-mail"
@@ -49,7 +49,7 @@ if "Przejdź do koszyka" as if1 then
 else 
   --> [NIE] "Przejdź do strony głównej"
   --> === B1 ===
-  === B1 === --> "Kup bilet"
+  === B1 === --> "Generuj bilet"
   --> if "Sposób wyszukiwania" as if6 then 
     --> [Po dacie] "Wyświetlenie kalendarza ze spektaklami"
     --> [Wybór dnia] "Wyświetlenie konkretnego dnia z godzinami spektali"
