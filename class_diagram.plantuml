@@ -50,10 +50,14 @@ class Platnosc {
   int id 
   float kwota
   int ttl
+  int nr_karty
+  int cvv 
+  string data_waznosci
+  int kod_blik
 
   platnoscKarta(kwota:float, nr_karty:int, cvv:int, data_waznosci:date):bool
   platnoscPrzelewem(kwota:float):bool
-  platnoscBlik(kwota:float, kod:int):bool
+  platnoscBlik(kwota:float, kod_blik:int):bool
 }
 
 class Bilet{
@@ -62,6 +66,9 @@ class Bilet{
   float cena
   string[] miejsca
 
+  kupBilet(bilet:Bilet, sposob_wysylki:string):bool
+  stworzBilet(id_biletu:int, id_spektakl:int, cena:float, miejsca:string[]):Bilet
+  wyslijBiletMailem(bilet:Bilet, email:string)
 }
 
 
@@ -70,8 +77,8 @@ class Koszyk {
   float wartosc
   Bilet[] bilety
 
-  usunBilet(bilet:Bilet):bool
-  void dodajWiecejBiletow()
+  usunBiletKoszyk(bilet:Bilet):bool
+  dodajBiletKoszyk(bilet:Bilet):bool
 }
 
 
@@ -84,15 +91,22 @@ class PracownikTeatru {
   void usunSpektakl(Spektakl)
 }
 
+class Teatr {
+  int id 
+  string nazwa
+  string nr_telefonu
+  string godziny_otwarcia
+  string adres
+}
 
 class StronaInternetowa {
   string adres
-
+  int id_teatru
   void wyswietlSpektakle(id_teatru:int)
   void wyswietlAktorow(id_teatru:int)
   void wyswietlKalendarz(id_teatru:int)
-  kupBilet(bilet:Bilet, sposob_wysylki:string):bool
   void rozpocznijPlatnosc(id_banku:int, bilety:Bilet[])
+  kupBilet(bilet:Bilet, sposob_wysylki:string):bool
   stworzBilet(id_biletu:int, id_spektakl:int, cena:float, miejsca:string[]):Bilet
   wyslijBiletMailem(bilet:Bilet, email:string)
 }
@@ -116,4 +130,6 @@ PracownikTeatru -- Spektakl
 
 Czlowiek --|> Klient 
 Czlowiek --|> PracownikTeatru
+
+Teatr -- StronaInternetowa
 @enduml
