@@ -54,10 +54,11 @@ class Platnosc {
   int cvv 
   string data_waznosci
   int kod_blik
+  string nr_konta
 
-  platnoscKarta(kwota:float, nr_karty:int, cvv:int, data_waznosci:date):bool
-  platnoscPrzelewem(kwota:float):bool
-  platnoscBlik(kwota:float, kod_blik:int):bool
+  platnoscKarta(kwota:float, nr_karty:int, cvv:int, data_waznosci:date, ttl:int):bool
+  platnoscPrzelewem(kwota:float, nr_konta:string, ttl:int):bool
+  platnoscBlik(kwota:float, kod_blik:int, ttl:int):bool
 }
 
 class Bilet{
